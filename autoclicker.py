@@ -1,17 +1,32 @@
 """Autoclicker which records keystrokes and repeats actions"""
-import window_util
-
+import argparse
+import window_handler
+import input_handler
+import time
 
 def main(args):
-    # 1. Find window of interest.
-    win = window_util.find_window('RuneLite')
+    # Wait for user acknowledgement.
+    input('Press ENTER to start recording. Then x to stop recording once finished.')
+
+    # Find window of interest.
+    win = window_handler.find_window('RuneLite')
     
-    # 2. Bring it into focus.
+    # Bring it into focus.
+    win.minimize()
     win.restore()
 
-    # 3. Record mouse inputs.
-    window_util.record_mouse_inputs()
-    
+    # Record mouse inputs.
+    raw_input = input_handler.record_mouse_input()
+
+    # Filter mouse inputs.
+    filt_inputs = input_handler.filter_clicks(raw_input)
+
+    # Wait for user confirmation.
+    print('Waiting for 5s delay before replaying input.')
+    time.sleep(5)
+
+    # Replay input.
+    input_handler.replay_inputs(filt_inputs)
 
 
 if __name__ == "__main__":

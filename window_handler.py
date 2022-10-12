@@ -1,7 +1,5 @@
 import pyautogui as pg
-import mouse
 import sys
-import time
 
 def find_window(win_name: str):
     # Get titles of all active windows.
@@ -21,8 +19,3 @@ def find_window(win_name: str):
         sys.exit()
         
     return win
-
-def record_mouse_inputs():
-    while True:
-        print(mouse.get_position(), mouse.is_pressed(button='left'))
-        time.sleep(0.1)
