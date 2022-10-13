@@ -9,7 +9,7 @@ def main(args):
     input('Press ENTER to start recording. Then x to stop recording once finished.')
 
     # Find window of interest.
-    win = window_handler.find_window('RuneLite')
+    win = window_handler.find_window(args.window)
     
     # Bring it into focus.
     win.minimize()
@@ -30,7 +30,8 @@ def main(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser('\n\nRun command example:\npython autoclicker.py --window RuneLite')
+    
     # Required positional argument
     #parser.add_argument("arg", help="Required positional argument")
 
@@ -38,7 +39,7 @@ if __name__ == "__main__":
     #parser.add_argument("-f", "--flag", action="store_true", default=False)
 
     # Optional argument which requires a parameter (eg. -d test)
-    #parser.add_argument("-n", "--name", action="store", dest="name")
+    parser.add_argument("-w", "--window", action="store", dest="window", type=str)
 
     # Optional verbosity counter (eg. -v, -vv, -vvv, etc.)
     #parser.add_argument(
