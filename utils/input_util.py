@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-import tempfile
-from tkinter import LEFT
 import keyboard
 import mouse
 import pyautogui as pg
@@ -13,6 +11,11 @@ class MouseInput:
     left_clicked: bool
     right_clicked: bool
     timestamp: float
+
+def wait_for_left_click():
+    while True:
+        if mouse.is_pressed(button='left'):
+            return mouse.get_position()
 
 def record_mouse_input() -> list:
     # Record list of mouse input.
