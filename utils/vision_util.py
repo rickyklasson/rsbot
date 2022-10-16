@@ -10,7 +10,7 @@ def get_object_point(img_path: str, img_offset: tuple, mask_color: tuple):
     #cv2.waitKey(0)
     
     # Find contours of mask.
-    contours, _ = cv2.findContours(image=masked_img, mode=cv2.RETR_TREE, method=cv2.CHAIN_APPROX_NONE)
+    contours, _ = cv2.findContours(image=masked_img, mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_NONE)
 
     # Debug, visualize the contours.
     #img_copy = img.copy()
@@ -25,8 +25,7 @@ def get_object_point(img_path: str, img_offset: tuple, mask_color: tuple):
     if len(contours) == 0:
         return None
 
-    choice_idx = random.randrange(len(contours))
-    chosen_cont = contours[choice_idx]
+    chosen_cont = max(contours, key=cv2.contourArea)
     rect_x, rect_y, rect_w, rect_h = cv2.boundingRect(chosen_cont)
 
     print(rect_x, rect_y, rect_w, rect_h)
@@ -35,6 +34,7 @@ def get_object_point(img_path: str, img_offset: tuple, mask_color: tuple):
     while True:
         x = random.randint(rect_x, rect_x + rect_w)
         y = random.randint(rect_y, rect_y + rect_h)
+        print(f'Chose point {x}, {y}')
 
         val = cv2.pointPolygonTest(chosen_cont, (x, y), False)
         if val >= 0:
