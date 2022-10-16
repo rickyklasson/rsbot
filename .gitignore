@@ -1,2 +1,5 @@
 fr_LP
 __pycache__
+*.png
+*.jpg
+tmp*
